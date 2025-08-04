@@ -11,7 +11,6 @@ import { Separator } from '@/components/ui/separator';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
 import { LogOut, User, Building, Phone, Calendar, Loader2, Settings } from 'lucide-react';
-import { PostgrestError } from '@supabase/supabase-js';
 
 interface Profile {
   id: string;
@@ -55,11 +54,10 @@ export default function Dashboard() {
 
       if (error) throw error;
       setProfile(data);
-    } catch (error: unknown) {
-      const errorMessage = error instanceof Error ? error.message : 'Erro desconhecido';
+    } catch (error: any) {
       toast({
         title: "Erro ao carregar perfil",
-        description: errorMessage,
+        description: error.message,
         variant: "destructive",
       });
     } finally {
@@ -93,11 +91,10 @@ export default function Dashboard() {
         title: "Perfil atualizado!",
         description: "Suas informações foram salvas com sucesso.",
       });
-    } catch (error: unknown) {
-      const errorMessage = error instanceof Error ? error.message : 'Erro desconhecido';
+    } catch (error: any) {
       toast({
         title: "Erro ao atualizar perfil",
-        description: errorMessage,
+        description: error.message,
         variant: "destructive",
       });
     } finally {

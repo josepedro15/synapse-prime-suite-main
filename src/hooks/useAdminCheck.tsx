@@ -24,13 +24,13 @@ export function useAdminCheck() {
           .maybeSingle();
 
         if (error) {
-          // Silently handle error - user is not admin
+          console.error('Error checking admin status:', error);
           setIsAdmin(false);
         } else {
           setIsAdmin(!!data);
         }
       } catch (error) {
-        // Silently handle error - user is not admin
+        console.error('Error checking admin status:', error);
         setIsAdmin(false);
       } finally {
         setLoading(false);
